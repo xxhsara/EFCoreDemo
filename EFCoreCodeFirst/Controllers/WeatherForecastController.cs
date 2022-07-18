@@ -42,7 +42,7 @@ namespace EFCoreCodeFirst.Controllers
             var existCompany = _dbContext.Company.FirstOrDefault();
             var existCompanyIncluding = _dbContext.Company.Include(s=>s.Accounts).FirstOrDefault();
 
-            _dbContext.SaveChanges();
+            //_dbContext.SaveChanges();
             #endregion
             #region 实体的State
             //var account = new Entities.Account
@@ -63,7 +63,14 @@ namespace EFCoreCodeFirst.Controllers
             var statefirstAccountNoTracking = _dbContext.Entry<Account>(firstAccountNoTracking).State;
             Console.WriteLine($"查询后NoTracking的State为：{statefirstAccountNoTracking}");
             #endregion
-           
+
+
+            #region DDD充血模型
+
+            var company = new Company("company002","No001");
+            _dbContext.Company.Add(company);
+
+            #endregion
 
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
